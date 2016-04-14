@@ -116,8 +116,19 @@ function handleJsIds() {
 	handleModalIds();
 	handleAccordionIds();
 	handleCarouselIds();
-	handleTabsIds()
+	handleTabsIds();
+	handleTempIds();
 }
+
+function handleTempIds(){
+	var e = $(".demo #myTemp");
+	var t = randomNumber();
+	var n = "myTemp-" + t;
+	var r;
+	e.attr("id", n);
+	tempratureUI(n);
+}
+
 function handleAccordionIds() {
 	var e = $(".demo #myAccordion");
 	var t = randomNumber();
@@ -325,6 +336,8 @@ function initContainer(){
 	configurationElm();
 }
 $(document).ready(function() {
+	//绘制表盘样式
+	getDial(".dial", "", "温度", "℃", 0, 100, { layer1: { from: 30, to: 50, color: green }, layer2: { from: 0, to: 30, color: yellow }, layer3: { from: 50, to: 100, color: red } });
 	CKEDITOR.disableAutoInline = true;
 	restoreData();
 	var contenthandle = CKEDITOR.replace( 'contenteditor' ,{
