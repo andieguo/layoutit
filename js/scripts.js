@@ -325,7 +325,7 @@ function initContainer(){
 	});
 	configurationElm();
 }
-
+<!--定义全局变量--> 
 var gUiObject = {
 	"ui_test" : ui_test,
 	"fs_temperature": fs_temperature,
@@ -389,7 +389,15 @@ $(document).ready(function() {
 			var uid = t.helper.children(".view").children().attr("id");
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
 				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hg") >= 0){//自定义ui控件
-					var x = gUiObject[uid].create();
+					var x = gUiObject[uid].create();//根据拖动的控件创建对象
+					console.log("upperlimit:"+x.getProperty("upperlimit"));
+					console.log("x:"+x);
+					x.setProperty("upperlimit",200);
+					//x.setHeight(500);
+					x.setValue(60);
+					console.log("upperlimit:"+x.getProperty("upperlimit"));
+					console.log(x.properties());
+					gAppObject[x.id] = x;//存储到gAppObject对象
 				}
 			}
 			if(stopsave>0) stopsave--;

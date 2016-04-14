@@ -24,6 +24,7 @@ function tempratureUI(tid) {
         }
     });
     csatGauge.render();
+    return csatGauge;
 };
 
 
