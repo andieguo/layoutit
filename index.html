@@ -31,7 +31,7 @@
 <script type="text/javascript" src="js/jquery.htmlClean.js"></script>
 <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="ckeditor/config.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
+
 <!--highcharts-->
   <script type="text/javascript" src="highcharts/highcharts.js" ></script>
   <script type="text/javascript" src="highcharts/highcharts-more.js" ></script>
@@ -40,6 +40,11 @@
   <script type="text/javascript" src="fusioncharts/fusioncharts.js"></script>
   <script type="text/javascript" src="fusioncharts/themes/fusioncharts.theme.fint.js"></script>
   <script type="text/javascript" src="fusioncharts/fusioncharts-index.js"></script>
+  <script type="text/javascript" src="ui/ui_test.js"></script>
+  <script type="text/javascript" src="ui/fs_temperature.js"></script>
+  <script type="text/javascript" src="ui/hg_dial.js"></script>
+
+  <script type="text/javascript" src="js/scripts.js"></script>
 </head>
 
 <body style="min-height: 660px; cursor: auto;" class="edit">
@@ -434,28 +439,6 @@
             </div>
           </li>
           <li style="display: none;" class="boxes" id="elmComponents">
-		             
-        
-			<!--表盘-->
-            <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>
-              <span class="configuration"><button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal">编辑</button></span>
-              <div class="preview">表盘</div>
-              <div class="view">
-                 <div class="dial" style="width:300px;height:300px"></div>
-              </div>
-            </div>
-			<!--END-->
-		  
-		  	<!--温度计-->
-            <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>
-              <span class="configuration"><button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal">编辑</button></span>
-              <div class="preview">温度计</div>
-              <div class="view">
-                 <div id="myTemp"></div>
-              </div>
-            </div>
-			<!--END-->
-		  
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> <span class="configuration"> <span class="btn-group"> <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">方向<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li class="active"><a href="#" rel="">横向</a></li>
@@ -472,8 +455,6 @@
                 </div>
               </div>
             </div>
-
-
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> <span class="configuration"><button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal">编辑</button> <a class="btn btn-mini" href="#" rel="dropup">上拉</a> </span>
               <div class="preview">下拉菜单</div>
               <div class="view">

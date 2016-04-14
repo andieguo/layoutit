@@ -117,16 +117,6 @@ function handleJsIds() {
 	handleAccordionIds();
 	handleCarouselIds();
 	handleTabsIds();
-	handleTempIds();
-}
-
-function handleTempIds(){
-	var e = $(".demo #myTemp");
-	var t = randomNumber();
-	var n = "myTemp-" + t;
-	var r;
-	e.attr("id", n);
-	tempratureUI(n);
 }
 
 function handleAccordionIds() {
@@ -335,9 +325,17 @@ function initContainer(){
 	});
 	configurationElm();
 }
+
+var gUiObject = {
+	"ui_test" : ui_test,
+	"fs_temperature": fs_temperature,
+	"hg_dial": hg_dial
+};
+
+var gAppObject = {};
+	
 $(document).ready(function() {
-	//绘制表盘样式
-	getDial(".dial", "", "温度", "℃", 0, 100, { layer1: { from: 30, to: 50, color: green }, layer2: { from: 0, to: 30, color: yellow }, layer3: { from: 50, to: 100, color: red } });
+	$("#elmComponents").html(ui_test.html + fs_temperature.html+ hg_dial.html + $("#elmComponents").html());	
 	CKEDITOR.disableAutoInline = true;
 	restoreData();
 	var contenthandle = CKEDITOR.replace( 'contenteditor' ,{
@@ -386,8 +384,14 @@ $(document).ready(function() {
 		drag: function(e, t) {
 			t.helper.width(400)
 		},
-		stop: function() {
+		stop: function(e, t) {
 			handleJsIds();
+			var uid = t.helper.children(".view").children().attr("id");
+			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
+				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hg") >= 0){//自定义ui控件
+					var x = gUiObject[uid].create();
+				}
+			}
 			if(stopsave>0) stopsave--;
 			startdrag = 0;
 		}
