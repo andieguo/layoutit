@@ -8,14 +8,29 @@ var hg_dial = {
                   '</div>'+
          '</div>',
 
-    create: function(){
-    	var e = $(".demo #hg_dial");
-		var t = randomNumber();
-		var n = "hg_dial-" + t;
-		var r;
-		e.attr("id", n);
+    create: function() {
+        var e = $(".demo #hg_dial");
+        var t = randomNumber();
+        var n = "hg_dial-" + t;
+        var r;
+        e.attr("id", n);
         //绘制表盘样式
-        getDial("#"+n, "", "温度", "℃", 0, 100, { layer1: { from: 30, to: 50, color: green }, layer2: { from: 0, to: 30, color: yellow }, layer3: { from: 50, to: 100, color: red } });
+        getDial("#" + n, "", "温度", "℃", 0, 100, {
+            layer1: {
+                from: 30,
+                to: 50,
+                color: green
+            },
+            layer2: {
+                from: 0,
+                to: 30,
+                color: yellow
+            },
+            layer3: {
+                from: 50,
+                to: 100,
+                color: red
+            }
+        });
     }
-
 }

@@ -1,4 +1,3 @@
-
 function tempratureUI(tid) {
     var csatGauge = new FusionCharts({
         "type": "thermometer",
@@ -26,5 +25,3 @@ function tempratureUI(tid) {
     csatGauge.render();
     return csatGauge;
 };
-
-
