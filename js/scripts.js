@@ -30,6 +30,7 @@ function saveLayout(){
 	data.list[data.count] = window.demoHtml;
 	data.count++;
 	if (supportstorage()) {
+		localStorage.setItem("layoutconfig",JSON.stringify(layoutconfig));
 		localStorage.setItem("layoutdata",JSON.stringify(data));
 	}
 	layouthistory = data;
@@ -45,7 +46,6 @@ function saveLayout(){
 }
 
 function downloadLayout(){
-	
 	$.ajax({  
 		type: "POST",  
 		url: "/build/downloadLayout",  
@@ -215,6 +215,11 @@ function configurationElm(e, t) {
 }
 function removeElm() {
 	$(".demo").delegate(".remove", "click", function(e) {
+		var uid = $(this).parent().find('.view').children().attr("id");
+		if(typeof(uid)!='undefined' && (uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hg") >= 0)){//控件中的<div id>属性是否存在 
+			layoutconfig.remove(uid);
+			localStorage.setItem("layoutconfig",layoutconfig);
+		}
 		e.preventDefault();
 		$(this).parent().remove();
 		if (!$(".demo .lyrow").length > 0) {
@@ -225,8 +230,12 @@ function removeElm() {
 function clearDemo() {
 	$(".demo").empty();
 	layouthistory = null;
-	if (supportstorage())
+	if (supportstorage()){
+		layoutconfig = new Map();
+		localStorage.removeItem("layoutconfig");
 		localStorage.removeItem("layoutdata");
+	}
+		
 }
 function removeMenuClasses() {
 	$("#menu-layoutit li button").removeClass("active")
@@ -302,6 +311,10 @@ $(window).resize(function() {
 
 function restoreData(){
 	if (supportstorage()) {
+		if(!localStorage.getItem("layoutconfig")){
+			console.log("不为空");
+			layoutconfig = JSON.parse(localStorage.getItem("layoutconfig"));
+		}		
 		layouthistory = JSON.parse(localStorage.getItem("layoutdata"));
 		if (!layouthistory) return false;
 		window.demoHtml = layouthistory.list[layouthistory.count-1];
@@ -332,7 +345,8 @@ var gUiObject = {
 	"hg_dial": hg_dial,
 	"fs_dial": fs_dial
 };
-	
+<!--自定义UI配置全局变量--> 
+var layoutconfig = new Map();
 $(document).ready(function() {
 	$("#elmComponents").html(ui_test.html + fs_temperature.html+ hg_dial.html + fs_dial.html + $("#elmComponents").html());	
 	CKEDITOR.disableAutoInline = true;
@@ -389,14 +403,16 @@ $(document).ready(function() {
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
 				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hg") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
-					console.log("upperlimit:"+ui.getProperty("upperlimit"));
-					console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
-					console.log("ui:"+ui);
-					ui.setValue(89);
-					ui.setProperty("lowerlimit",1);
-					ui.setProperty("upperlimit",200);
-					ui.setValue(60);
-					console.log("upperlimit:"+ui.getProperty("upperlimit"));
+					layoutconfig.put(ui.properties.tid,ui.properties);
+					localStorage.setItem("layoutconfig",layoutconfig);
+					// console.log("upperlimit:"+ui.getProperty("upperlimit"));
+					// console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
+					// console.log("ui:"+ui);
+					// ui.setValue(67);
+					// ui.setProperty("lowerlimit",);
+					// ui.setProperty("upperlimit",200);
+					// ui.setValue(60);
+					// console.log("upperlimit:"+ui.getProperty("upperlimit"));
 				}
 			}
 			if(stopsave>0) stopsave--;

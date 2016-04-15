@@ -29,5 +29,64 @@ var fs_temperature = {
         ui.render();
         return ui;
     }
-
 }
+
+ function TemperatureUI(prop) {
+
+    this.properties = prop;
+
+    this.Property = {
+       WIDTH : "width",
+       HEIGHT : "height"
+    }
+
+    var csatGauge = new FusionCharts({
+        "type": "thermometer",
+        "renderAt": prop.tid,
+        "width": prop.width,
+        "height": prop.height,
+        "dataFormat": "json",
+        "dataSource": {
+            "chart": {
+                "upperLimit": prop.upperLimit,
+                "lowerLimit": prop.lowerLimit,
+                "numberSuffix": prop.numberSuffix,
+                "decimals": "1",
+                "showhovereffect": "1",
+                "gaugeFillColor": prop.gaugeFillColor,
+                "gaugeBorderColor": "#008ee4",
+                "showborder": "0",
+                "bgcolor": prop.bgcolor,
+                "tickmarkgap": "5",
+                "theme": "fint"
+            },
+            "value": "28"
+        }
+    });
+    
+    var charData = csatGauge.getChartData("json");
+    this.render = function(){
+        csatGauge.render();
+    };
+
+    this.setUpperLimit = function(value){
+        charData.chart.upperlimit = value;
+        csatGauge.setChartData(charData);
+    };
+
+    this.setProperty = function(name,value){
+        charData.chart[name] = value;
+        csatGauge.setChartData(charData);
+    };
+
+    this.getProperty = function(name,value){
+        console.log(charData.chart[name]);
+        return charData.chart[name];
+    };
+
+    this.setValue = function(value){
+        console.log("charData:"+charData);
+        charData.value = value;
+        csatGauge.setChartData(charData);
+    }
+};
