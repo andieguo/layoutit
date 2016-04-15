@@ -314,12 +314,16 @@ function restoreData(){
 		var data = localStorage.getItem("layoutconfig");
 		// console.log("localStorage.layoutconfig:"+data);
 		if(data){
-			data = JSON.parse(data);
-			if(data.arr.length > 0){
-				// console.log("localStorage.layoutconfig不为空");
-				layoutconfig = parseJSONtoMap(data);
-			}else{
-				// console.log("localStorage.layoutconfig为空");
+			try{//data可能为"[object,object]"
+				data = JSON.parse(data);
+				if(data.arr.length > 0){
+					// console.log("localStorage.layoutconfig不为空");
+					layoutconfig = parseJSONtoMap(data);
+				}else{
+					// console.log("localStorage.layoutconfig为空");
+					layoutconfig = new Map();
+				}
+			}catch(e){
 				layoutconfig = new Map();
 			}
 		}else{
@@ -349,7 +353,7 @@ function initContainer(){
 	});
 	configurationElm();
 }
-<!--定义全局变量--> 
+<!--定义全局变量 key:object--> 
 var gUiObject = {
 	"ui_test" : ui_test,
 	"fs_temperature": fs_temperature,
@@ -359,7 +363,11 @@ var gUiObject = {
 <!--自定义UI配置全局变量--> 
 var layoutconfig;
 $(document).ready(function() {
-	$("#elmComponents").html(ui_test.html + fs_temperature.html+ hg_dial.html + fs_dial.html + $("#elmComponents").html());	
+	var tabContent = "";
+	for(var p in gUiObject){
+		tabContent = gUiObject[p].html + tabContent;
+	}
+	$("#elmComponents").html(tabContent + $("#elmComponents").html());	
 	CKEDITOR.disableAutoInline = true;
 	restoreData();
 	var contenthandle = CKEDITOR.replace( 'contenteditor' ,{
@@ -443,7 +451,7 @@ $(document).ready(function() {
 		console.log($("#fsAttrModal").html());
 		var uid = $(this).parent().parent().find('.view').children().attr("id");
 		console.log(uid);
-		//遍历JSON对象
+		//遍历JSON对象(try catch)
 		var data = JSON.parse(localStorage.getItem("layoutconfig"));
 		//"{"arr":[{"key":"fs_temperature_323397","value":{"tid":"fs_temperature_323397","width":240,"height":200,"upperLimit":100,"lowerLimit":0,"numberSuffix":"℃","bgcolor":"#f3f5f7","gaugeFillColor":"#ffc420"}}]}"
 		console.log("arr:"+data.arr);
@@ -455,14 +463,16 @@ $(document).ready(function() {
 			}
 		}
 		if(property){
-			var ui = new TemperatureUI(property);
+			uid = uid.substring(0,uid.lastIndexOf("_"));
+			console.log(uid);
+			var ui = gUiObject[uid].getUI(property);
         	console.log("ui:"+ui);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
         	console.log("ui:"+ui);
         	ui.setProperty("lowerlimit",2);
         	ui.setProperty("upperlimit",200);
-        	ui.setValue(randomNumber());
+        	ui.setValue(56);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("child:"+$(this).parent().parent().find('.view').children().html(""));
         	ui.render();

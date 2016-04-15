@@ -28,6 +28,11 @@ var fs_temperature = {
         console.log("ui:"+ui);
         ui.render();
         return ui;
+    },
+
+    getUI: function(properties){
+        var ui = new TemperatureUI(properties);
+        return ui;
     }
 }
 
@@ -38,7 +43,7 @@ var fs_temperature = {
     this.Property = {
        WIDTH : "width",
        HEIGHT : "height"
-    }
+    };
 
     var csatGauge = new FusionCharts({
         "type": "thermometer",
