@@ -1,0 +1,21 @@
+.attr {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	box-sizing: border-box;
+	width: 100%;
+	padding-left: 200px;
+	background-color: #F5F5F5;
+	border-top: 1px solid #ddd;
+}
+.attr-header {
+	border-bottom: 1px solid #ddd;
+	padding: 9px 15px;
+	color: #666666;
+}
+.attr-body {
+	padding: 9px 15px;
+}
+.form-group {}
+.form-group span {}
+.form-group input {}
