@@ -310,10 +310,21 @@ $(window).resize(function() {
 });
 
 function restoreData(){
-	if (supportstorage()) {
-		if(!localStorage.getItem("layoutconfig")){
-			console.log("不为空");
-			layoutconfig = JSON.parse(localStorage.getItem("layoutconfig"));
+	if (supportstorage()) {//data可能的值为：null,{"arr":[]}
+		var data = localStorage.getItem("layoutconfig");
+		// console.log("localStorage.layoutconfig:"+data);
+		if(data){
+			data = JSON.parse(data);
+			if(data.arr.length > 0){
+				// console.log("localStorage.layoutconfig不为空");
+				layoutconfig = parseJSONtoMap(data);
+			}else{
+				// console.log("localStorage.layoutconfig为空");
+				layoutconfig = new Map();
+			}
+		}else{
+			// console.log("localStorage.layoutconfig为空");
+			layoutconfig = new Map();
 		}		
 		layouthistory = JSON.parse(localStorage.getItem("layoutdata"));
 		if (!layouthistory) return false;
@@ -346,7 +357,7 @@ var gUiObject = {
 	"fs_dial": fs_dial
 };
 <!--自定义UI配置全局变量--> 
-var layoutconfig = new Map();
+var layoutconfig;
 $(document).ready(function() {
 	$("#elmComponents").html(ui_test.html + fs_temperature.html+ hg_dial.html + fs_dial.html + $("#elmComponents").html());	
 	CKEDITOR.disableAutoInline = true;
@@ -432,6 +443,30 @@ $(document).ready(function() {
 		console.log($("#fsAttrModal").html());
 		var uid = $(this).parent().parent().find('.view').children().attr("id");
 		console.log(uid);
+		//遍历JSON对象
+		var data = JSON.parse(localStorage.getItem("layoutconfig"));
+		//"{"arr":[{"key":"fs_temperature_323397","value":{"tid":"fs_temperature_323397","width":240,"height":200,"upperLimit":100,"lowerLimit":0,"numberSuffix":"℃","bgcolor":"#f3f5f7","gaugeFillColor":"#ffc420"}}]}"
+		console.log("arr:"+data.arr);
+		var property;
+		for(var i=0; i<data.arr.length; i++){
+			if(data.arr[i].key == uid){
+				property = data.arr[i].value;
+				console.log("property:"+property);
+			}
+		}
+		if(property){
+			var ui = new TemperatureUI(property);
+        	console.log("ui:"+ui);
+        	console.log("upperlimit:"+ui.getProperty("upperlimit"));
+        	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
+        	console.log("ui:"+ui);
+        	ui.setProperty("lowerlimit",2);
+        	ui.setProperty("upperlimit",200);
+        	ui.setValue(randomNumber());
+        	console.log("upperlimit:"+ui.getProperty("upperlimit"));
+        	console.log("child:"+$(this).parent().parent().find('.view').children().html(""));
+        	ui.render();
+		}
 	});
 	$("#savecontent").click(function(e) {
 		e.preventDefault();

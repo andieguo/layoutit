@@ -1,3 +1,16 @@
+
+function parseJSONtoMap(data){
+    //"{"arr":[{"key":"fs_temperature_323397","value":{"tid":"fs_temperature_323397","width":240,"height":200,"upperLimit":100,"lowerLimit":0,"numberSuffix":"℃","bgcolor":"#f3f5f7","gaugeFillColor":"#ffc420"}}]}"
+    var map = new Map();
+    if(data && data.arr.length > 0){
+      for(var i=0;i<data.arr.length;i++){
+        map.put(data.arr[i].key,data.arr[i].value);
+      }
+    }
+    return map;
+}
+
+
 <!--Map工具类-->
 function Map() {
   var struct = function(key, value) {
