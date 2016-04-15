@@ -9,10 +9,10 @@ var ui_test = {
          '</div>',
 
     create: function(id){
-    	console.log('ui create');
+    	// console.log('ui create');
     	var e = $(".demo #ui_test");
 		var t = randomNumber();
-		var n = "ui_test-" + t;
+		var n = "ui_test_" + t;
 		var r;
 		e.attr("id", n);
     }

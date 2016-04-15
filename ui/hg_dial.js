@@ -11,11 +11,11 @@ var hg_dial = {
     create: function() {
         var e = $(".demo #hg_dial");
         var t = randomNumber();
-        var n = "hg_dial-" + t;
+        var n = "hg_dial_" + t;
         var r;
         e.attr("id", n);
         //绘制表盘样式
-        getDial("#" + n, "", "温度", "℃", 0, 100, {
+        var chart = getDial("#" + n, "", "温度", "℃", 0, 100, {
             layer1: {
                 from: 30,
                 to: 50,
@@ -32,5 +32,23 @@ var hg_dial = {
                 color: red
             }
         });
+        var x = {
+            id:n,
+            setValue:function(value){
+                var point = chart.series[0].points[0];
+                point.update(value);
+            },
+            getName:function(){
+                var title  = chart.title.textStr; 
+                console.log("title:"+title);
+                return title;
+            },
+            setName:function(title){
+                chart.setTitle(title);
+            },
+            hg: chart  
+        };
+
+        return x;
     }
 }

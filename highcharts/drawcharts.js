@@ -98,6 +98,7 @@ function getDial(id, data_id, title, unit, min, max, bandArea) {
         }]
     }
 	);
+    return $(id).highcharts(); 
 }
 //表盘赋值函数
 function setDialData(showid,newVal) {
