@@ -174,6 +174,9 @@ function randomNumber() {
 function randomFromInterval(e, t) {
 	return Math.floor(Math.random() * (t - e + 1) + e)
 }
+function randomNumber1(){
+	return (new Date()).getTime()+parseInt(Math.random()*100000);
+}
 function gridSystemGenerator() {
 	$(".lyrow .preview input").bind("keyup", function() {
 		var e = 0;
