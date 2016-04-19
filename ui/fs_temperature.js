@@ -9,6 +9,24 @@ var fs_temperature = {
                   '</div>'+
          '</div>',
 
+    configHtml : ' <div class="attr-header">属性设置</div>' +
+      '<div class="attr-body">' +
+        '<div class="form-group">' +
+          '<span>标题</span>' +
+          '<input type="text">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<span>Mac地址：</span>' +
+          '<input type="text">' +
+          '<span>范围：</span>' +
+          '<input type="text">' +
+          '<span>颜色：</span>' +
+          '<input type="text">' +
+          '<span>横轴：</span>' +
+          '<input type="text">' +
+       '</div>' +
+     ' </div>',
+
     create: function(){
     	var e = $(".demo #fs_temperature");
 		var t = randomNumber();

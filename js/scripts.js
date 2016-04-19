@@ -312,10 +312,35 @@ $(window).resize(function() {
 	$(".demo").css("min-height", $(window).height() - 160)
 });
 
+/**将编辑页面内容中的image部分清空**/
+function removeImage(){
+	$("#tmpID").html($(".demo").html());//将编辑页面内容添加到临时编辑区域
+	var data = localStorage.getItem("layoutconfig");
+	data = JSON.parse(data);
+	for(var i=0;i<data.arr.length;i++){
+		var uid = data.arr[i].key;
+		$("#tmpID #"+uid).html("");//将image清空
+	}
+	return $("#tmpID").html();
+}
+
+/**读取配置文件重新渲染静态页面*/
+function renderUI(){
+	var data = localStorage.getItem("layoutconfig");
+	data = JSON.parse(data);
+	for(var i=0;i<data.arr.length;i++){
+		var uid = data.arr[i].key;
+		var property = data.arr[i].value;
+		uid = uid.substring(0,uid.lastIndexOf("_"));
+		var ui = gUiObject[uid].getUI(property);
+		ui.render();
+	}
+}
+
 function restoreData(){
 	if (supportstorage()) {//data可能的值为：null,{"arr":[]}
 		var data = localStorage.getItem("layoutconfig");
-		// console.log("localStorage.layoutconfig:"+data);
+		console.log("localStorage.layoutconfig:"+data);
 		if(data){
 			try{//data可能为"[object,object]"
 				data = JSON.parse(data);
@@ -469,6 +494,8 @@ $(document).ready(function() {
 			uid = uid.substring(0,uid.lastIndexOf("_"));
 			console.log(uid);
 			var ui = gUiObject[uid].getUI(property);
+			var configHtml = gUiObject[uid].configHtml;//编辑代码
+			$("#fsAttrModal").html(configHtml);
         	console.log("ui:"+ui);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
@@ -553,7 +580,7 @@ $(document).ready(function() {
 		stopsave++;
 		if (redoLayout()) initContainer();
 		stopsave--;
-	});
+	})
 	removeElm();
 	gridSystemGenerator();
 	setInterval(function() {
