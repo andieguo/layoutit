@@ -496,10 +496,11 @@ $(document).ready(function() {
 			var ui = gUiObject[uid].getUI(property);
 			var configHtml = gUiObject[uid].configHtml;//编辑代码
 			$("#fsAttrModal").html(configHtml);
+			$("#fsAttrModal").fadeIn(500);
 			var faHeigh = $("#fsAttrModal").outerHeight(true);
-			$("body").css("padding-bottom",faHeigh + 20);
+			$("body").animate({paddingBottom: faHeigh + 20},500);
+			$(".demo").animate({minHeight: $(window).height() - 130 - faHeigh},500);
 			$("body").css("min-height", $(window).height() - 90 - faHeigh);
-			$(".demo").css("min-height", $(window).height() - 130 - faHeigh);
         	console.log("ui:"+ui);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
@@ -514,10 +515,11 @@ $(document).ready(function() {
 	});
 	<!--属性窗口关闭-->
 	$('#fsAttrModal').on("click","[data-target=#close]",function(e) {
-		$('#fsAttrModal').empty();
+		$('#fsAttrModal').fadeOut(500);
+		setTimeout(function() {$('#fsAttrModal').empty()}, 500);
 		$("body").css("padding-bottom","20px");
+		$(".demo").animate({minHeight: $(window).height() - 130},500);
 		$("body").css("min-height", $(window).height() - 90);
-		$(".demo").css("min-height", $(window).height() - 130);
 	});
 	$("#savecontent").click(function(e) {
 		e.preventDefault();
