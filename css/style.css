@@ -17,6 +17,10 @@
 	padding: 14px 25px 5px 25px;
 	background-color: #fafafa;
 }
+.attr .input-prepend .add-on,
+.attr .input-prepend input {
+	font-size: 9px;
+}
 .mr10p {
 	margin-right: 10px;
 }
