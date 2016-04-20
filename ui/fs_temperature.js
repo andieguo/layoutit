@@ -9,23 +9,29 @@ var fs_temperature = {
                   '</div>'+
          '</div>',
 
-    configHtml : ' <div class="attr-header">属性设置</div>' +
-      '<div class="attr-body">' +
-        '<div class="form-group">' +
-          '<span>标题</span>' +
-          '<input type="text">' +
-        '</div>' +
-        '<div class="form-group">' +
-          '<span>Mac地址：</span>' +
-          '<input type="text">' +
-          '<span>范围：</span>' +
-          '<input type="text">' +
-          '<span>颜色：</span>' +
-          '<input type="text">' +
-          '<span>横轴：</span>' +
-          '<input type="text">' +
-       '</div>' +
-     ' </div>',
+  configHtml :  '<div class="attr-header">属性设置<button class="close">&times;</button></div>' +
+                '<div class="attr-body">' +
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">标题</span>' +
+                    '<input class="w150p" type="text" placeholder="标题名称">' +
+                  '</div>' +
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">Mac地址</span>' +
+                    '<input class="w200p" type="text">' +
+                  '</div><br>' +
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">范围</span>' +
+                    '<input class="w100p" type="text">' +
+                  '</div>' +
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">颜色</span>' +
+                    '<input class="w50p" type="text">' +
+                  '</div>' +
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">横轴</span>' +
+                    '<input class="w50p" type="text">' +
+                  '</div>' +
+                ' </div>',
 
     create: function(){
     	var e = $(".demo #fs_temperature");
