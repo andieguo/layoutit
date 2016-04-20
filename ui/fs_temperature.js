@@ -9,7 +9,7 @@ var fs_temperature = {
                   '</div>'+
          '</div>',
 
-  configHtml :  '<div class="attr-header">属性设置<button class="close">&times;</button></div>' +
+  configHtml :  '<div class="attr-header">属性设置<button data-target="#close" class="close">&times;</button></div>' +
                 '<div class="attr-body">' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">标题</span>' +

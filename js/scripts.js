@@ -404,7 +404,7 @@ $(document).ready(function() {
 		allowedContent: true
 	});
 	$("body").css("min-height", $(window).height() - 90);
-	$(".demo").css("min-height", $(window).height() - 160);
+	$(".demo").css("min-height", $(window).height() - 130);
 	$(".sidebar-nav .lyrow").draggable({
 		connectToSortable: ".demo",
 		helper: "clone",
@@ -496,6 +496,10 @@ $(document).ready(function() {
 			var ui = gUiObject[uid].getUI(property);
 			var configHtml = gUiObject[uid].configHtml;//编辑代码
 			$("#fsAttrModal").html(configHtml);
+			var faHeigh = $("#fsAttrModal").outerHeight(true);
+			$("body").css("padding-bottom",faHeigh + 20);
+			$("body").css("min-height", $(window).height() - 90 - faHeigh);
+			$(".demo").css("min-height", $(window).height() - 130 - faHeigh);
         	console.log("ui:"+ui);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
@@ -507,6 +511,13 @@ $(document).ready(function() {
         	console.log("child:"+$(this).parent().parent().find('.view').children().html(""));
         	ui.render();
 		}
+	});
+	<!--属性窗口关闭-->
+	$('#fsAttrModal').on("click","[data-target=#close]",function(e) {
+		$('#fsAttrModal').empty();
+		$("body").css("padding-bottom","20px");
+		$("body").css("min-height", $(window).height() - 90);
+		$(".demo").css("min-height", $(window).height() - 130);
 	});
 	$("#savecontent").click(function(e) {
 		e.preventDefault();
