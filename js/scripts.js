@@ -404,7 +404,7 @@ $(document).ready(function() {
 		allowedContent: true
 	});
 	$("body").css("min-height", $(window).height() - 90);
-	$(".demo").css("min-height", $(window).height() - 160);
+	$(".demo").css("min-height", $(window).height() - 130);
 	$(".sidebar-nav .lyrow").draggable({
 		connectToSortable: ".demo",
 		helper: "clone",
@@ -501,6 +501,17 @@ $(document).ready(function() {
 			$("#attrModal").html(configHtml);
 			gUiObject[widgetIndex].showAttr(property);//显示控件属性值
 			/*
+			uid = uid.substring(0,uid.lastIndexOf("_"));
+			console.log(uid);
+			var ui = gUiObject[uid].getUI(property);
+			var configHtml = gUiObject[uid].configHtml;//编辑代码
+			$("#attrModal").html(configHtml);
+			$("#attrModal").fadeIn(500);
+			var faHeigh = $("#attrModal").outerHeight(true);
+			$("body").animate({paddingBottom: faHeigh + 20},500);
+			$(".demo").animate({minHeight: $(window).height() - 130 - faHeigh},500);
+			$("body").css("min-height", $(window).height() - 90 - faHeigh);
+
         	console.log("ui:"+ui);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
@@ -519,8 +530,14 @@ $(document).ready(function() {
 		});	
 	});
 
-
-
+	<!--属性窗口关闭-->
+	$('#attrModal').on("click","[data-target=#close]",function(e) {
+		$('#attrModal').fadeOut(500);
+		setTimeout(function() {$('#attrModal').empty()}, 500);
+		$("body").css("padding-bottom","20px");
+		$(".demo").animate({minHeight: $(window).height() - 130},500);
+		$("body").css("min-height", $(window).height() - 90);
+	});
 	$("#savecontent").click(function(e) {
 		e.preventDefault();
 		currenteditor.html(contenthandle.getData());

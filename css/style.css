@@ -10,12 +10,29 @@
 }
 .attr-header {
 	border-bottom: 1px solid #ddd;
-	padding: 9px 15px;
+	padding: 4px 15px;
 	color: #666666;
 }
 .attr-body {
-	padding: 9px 15px;
+	padding: 14px 25px 5px 25px;
+	background-color: #fafafa;
 }
-.form-group {}
-.form-group span {}
-.form-group input {}
+.attr .input-prepend .add-on,
+.attr .input-prepend input {
+	font-size: 9px;
+}
+.mr10p {
+	margin-right: 10px;
+}
+.w50p {
+	width: 50px;
+}
+.w100p {
+	width: 100px;
+}
+.w150p {
+	width: 150px;
+}
+.w200p {
+	width: 200px;
+}
