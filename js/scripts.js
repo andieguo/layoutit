@@ -219,7 +219,7 @@ function configurationElm(e, t) {
 function removeElm() {
 	$(".demo").delegate(".remove", "click", function(e) {
 		var uid = $(this).parent().find('.view').children().attr("id");
-		if(typeof(uid)!='undefined' && (uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hg") >= 0)){//控件中的<div id>属性是否存在 
+		if(typeof(uid)!='undefined' && (uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0)){//控件中的<div id>属性是否存在 
 			layoutconfig.remove(uid);
 			localStorage.setItem("layoutconfig",layoutconfig);
 		}
@@ -385,7 +385,7 @@ function initContainer(){
 var gUiObject = {
 	"ui_test" : ui_test,
 	"fs_temperature": fs_temperature,
-	"hg_dial": hg_dial,
+	"hc_dial": hc_dial,
 	"fs_dial": fs_dial
 };
 <!--自定义UI配置全局变量--> 
@@ -448,9 +448,9 @@ $(document).ready(function() {
 			handleJsIds();
 			var uid = t.helper.children(".view").children().attr("id");
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
-				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hg") >= 0){//自定义ui控件
+				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
-					layoutconfig.put(ui.properties.tid,ui.properties);
+					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
 					localStorage.setItem("layoutconfig",layoutconfig);
 					// console.log("upperlimit:"+ui.getProperty("upperlimit"));
 					// console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
@@ -467,19 +467,22 @@ $(document).ready(function() {
 		}
 	});
 	initContainer();
+	
 	$('body.edit .demo').on("click","[data-target=#editorModal]",function(e) {
 		e.preventDefault();
 		currenteditor = $(this).parent().parent().find('.view');
 		var eText = currenteditor.html();
 		contenthandle.setData(eText);
 	});
-	<!--编辑fusionchart控件--> 
-	$('body.edit .demo').on("click","[data-target=#fsEditorModal]",function(e) {
-		console.log("fsEditorModal");
-		console.log($("#fsAttrModal").html());
+
+	<!--控件属性编辑--> 
+	$('body.edit .demo').on("click","[data-target=#attrEditorModal]",function(e) {
+		console.log("attrEditorModal");
+		console.log($("#attrModal").html());
 		var uid = $(this).parent().parent().find('.view').children().attr("id");
 		console.log(uid);
-		//遍历JSON对象(try catch)
+
+		//从缓存中取出控件的属性列表
 		var data = JSON.parse(localStorage.getItem("layoutconfig"));
 		//"{"arr":[{"key":"fs_temperature_323397","value":{"tid":"fs_temperature_323397","width":240,"height":200,"upperLimit":100,"lowerLimit":0,"numberSuffix":"℃","bgcolor":"#f3f5f7","gaugeFillColor":"#ffc420"}}]}"
 		console.log("arr:"+data.arr);
@@ -491,11 +494,13 @@ $(document).ready(function() {
 			}
 		}
 		if(property){
-			uid = uid.substring(0,uid.lastIndexOf("_"));
-			console.log(uid);
-			var ui = gUiObject[uid].getUI(property);
-			var configHtml = gUiObject[uid].configHtml;//编辑代码
-			$("#fsAttrModal").html(configHtml);
+			var widgetIndex = uid.substring(0,uid.lastIndexOf("_"));
+			console.log(widgetIndex);
+			//var ui = gUiObject[widgetIndex].getUI(property);
+			var configHtml = gUiObject[widgetIndex].configHtml;//编辑代码
+			$("#attrModal").html(configHtml);
+			gUiObject[widgetIndex].showAttr(property);//显示控件属性值
+			/*
         	console.log("ui:"+ui);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
@@ -505,9 +510,17 @@ $(document).ready(function() {
         	ui.setValue(56);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("child:"+$(this).parent().parent().find('.view').children().html(""));
-        	ui.render();
+        	ui.render();*/
 		}
+
+		//根据新属性更新控件样式
+		$("#widget_update").click(function(){
+			gUiObject[widgetIndex].updateAttr(uid);//显示控件属性值
+		});	
 	});
+
+
+
 	$("#savecontent").click(function(e) {
 		e.preventDefault();
 		currenteditor.html(contenthandle.getData());
