@@ -15,10 +15,11 @@ var fs_temperature = {
                     '<span class="add-on">标题</span>' +
                     '<input class="w150p" type="text" placeholder="标题名称">' +
                   '</div>' +
+                  '<button class="btn mr10p" type="button">提交</button><br>' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">Mac地址</span>' +
                     '<input class="w200p" type="text">' +
-                  '</div><br>' +
+                  '</div>' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">范围</span>' +
                     '<input class="w100p" type="text">' +

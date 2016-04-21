@@ -505,14 +505,14 @@ $(document).ready(function() {
 			console.log(uid);
 			var ui = gUiObject[uid].getUI(property);
 			var configHtml = gUiObject[uid].configHtml;//编辑代码
-			$("#attrModal").html(configHtml);
+			$("#attrModal").html(configHtml);*/
 			$("#attrModal").fadeIn(500);
-			var faHeigh = $("#attrModal").outerHeight(true);
-			$("body").animate({paddingBottom: faHeigh + 20},500);
-			$(".demo").animate({minHeight: $(window).height() - 130 - faHeigh},500);
-			$("body").css("min-height", $(window).height() - 90 - faHeigh);
+			var attrModalHeigh = $("#attrModal").outerHeight(true);
+			$("body").animate({paddingBottom: attrModalHeigh + 20},500);
+			$(".demo").animate({minHeight: $(window).height() - 130 - attrModalHeigh},500);
+			$("body").css("min-height", $(window).height() - 90 - attrModalHeigh);
 
-        	console.log("ui:"+ui);
+        	/*console.log("ui:"+ui);
         	console.log("upperlimit:"+ui.getProperty("upperlimit"));
         	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
         	console.log("ui:"+ui);
