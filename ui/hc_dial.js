@@ -106,18 +106,18 @@ var hc_dial = {
     },
     updateAttr: function(divid){
         var title = $("#widget_title").val();
-        var height = $("#widget_height").val();
-        var max = $("#max_value").val();
-        var min = $("#min_value").val();
+        var height = parseInt($("#widget_height").val());
+        var max = parseInt($("#max_value").val());
+        var min = parseInt($("#min_value").val());
         var unit = $("#value_unit").val();
-        var layer1_from = $("#layer1_from").val();
-        var layer1_to = $("#layer1_to").val();
+        var layer1_from = parseInt($("#layer1_from").val());
+        var layer1_to = parseInt($("#layer1_to").val());
         var layer1_color = $("#layer1_color").val();
-        var layer2_from = $("#layer2_from").val();
-        var layer2_to = $("#layer2_to").val();
+        var layer2_from = parseInt($("#layer2_from").val());
+        var layer2_to = parseInt($("#layer2_to").val());
         var layer2_color = $("#layer2_color").val(); 
-        var layer3_from = $("#layer3_from").val();
-        var layer3_to = $("#layer3_to").val();
+        var layer3_from = parseInt($("#layer3_from").val());
+        var layer3_to = parseInt($("#layer3_to").val());
         var layer3_color = $("#layer3_color").val();               
         var properties = {
             tid: divid,
@@ -130,17 +130,19 @@ var hc_dial = {
             layer2:{from:layer2_from,to:layer2_to,color:layer2_color},
             layer3:{from:layer3_from,to:layer3_to,color:layer3_color}
         };
-        //var ui = new HCDialUI(properties);
-        //console.log(JSON.stringify(properties));
-        //setTimeout(function(){HCDialUI(properties);},500);
-        var dial = new Highcharts.Chart({
+        var ui = new HCDialUI(properties);
+        console.log(JSON.stringify(properties));
+        setTimeout(function(){HCDialUI(properties);},500);
+
+        
+/*        var dial = new Highcharts.Chart({
             chart: {
                 type:"gauge",
-                renderTo: $('#'+properties.tid)[0],
-                height: properties.height,
+                renderTo: $('#'+divid)[0],
+                height: 300,
             },
             title: {
-                text: properties.title
+                text: "湿度111"
             },
             legend: {
                 enabled: false
@@ -182,8 +184,8 @@ var hc_dial = {
             },
             // the value axis
             yAxis: {
-                min: properties.min,
-                max: properties.max,
+                min: 0,
+                max: 100,
 
                 minorTickInterval: 'auto',
                 minorTickWidth: 1,
@@ -201,25 +203,27 @@ var hc_dial = {
                     rotation: 'auto'
                 },
                 title: {
-                    text: properties.init
+                    text: "%"
                 },
-                plotBands: [properties.layer1, properties.layer2, properties.layer3]
+                plotBands: [{ from: 30, to: 70, color: green }, { from: 0, to: 30, color: yellow }, { from: 70, to: 100, color: red }]
             },
 
             series: [{
-                name: properties.title,
+                name: "湿度",
                 data: [0],
                 tooltip: {
-                    valueSuffix: properties.unit
+                    valueSuffix: "%"
                 }
             }]
-          });
+          });*/
     }
 }
 
 function HCDialUI(prop) {
 
   this.properties = prop;
+
+  console.log("prop:"+prop);
 
   var dial = new Highcharts.Chart({
     chart: {

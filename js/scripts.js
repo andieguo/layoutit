@@ -207,7 +207,7 @@ function configurationElm(e, t) {
 		var n = t.parent().parent().next().next().children();
 		t.find("li").removeClass("active");
 		$(this).parent().addClass("active");
-		var r = "";
+		var r = ""; 	
 		t.find("a").each(function() {
 			r += $(this).attr("rel") + " "
 		});
