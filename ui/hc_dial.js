@@ -2,58 +2,80 @@ var hc_dial = {
 
 	html : ' <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>'+
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
-                 '<div class="preview">表盘</div>' +
+                 '<div class="preview">表盘-hc</div>' +
                  '<div class="view">' +
-                   '<div id="hc_dial" style="width:300px;height:300px">'+
+                   '<div id="hc_dial">'+
                     '</div>'+
                  '</div>'+
             '</div>'+
          '<script>'+
-            '//getDial("#hc_dial", "", "温度", "℃", 0, 100, { layer1: { from: 30, to: 50, color: green }, layer2: { from: 0, to: 30, color: yellow }, layer3: { from: 50, to: 100, color: red } });'+
+            'getDial("#hc_dial", "", "温度", "℃", 0, 100, { layer1: { from: 30, to: 50, color: green }, layer2: { from: 0, to: 30, color: yellow }, layer3: { from: 50, to: 100, color: red } });'+
          '</script>',
 
-    configHtml : ' <div class="attr-header" id="attr_hc_dial">属性设置</div>' +
-    '<div class="attr-body">' +
-      '<div class="form-group">' +
-        '<span>标题</span>' +
-        '<input type="text" id="widget_title">' +
-        '<input type="button" value="更新控件" id="widget_update">'+
-      '</div>' +
-      '<div class="form-group">'+
-        '<span>控件高度：</span>'+
-        '<input type="text" id="widget_height">'+
-        '<span>最小值：</span>'+
-        '<input type="text" id="min_value">'+
-        '<span>最大值：</span>'+
-        '<input type="text" id="max_value">'+
-        '<span>单位：</span>'+
-        '<input type="text" id="value_unit">'+
-      '</div>'+
-      '<div class="form-group">'+
-        '<span>layer1： From</span>'+
-        '<input type="text" id="layer1_from">'+
-        '<span>To:</span>'+
-        '<input type="text" id="layer1_to">'+
-        '<span>颜色:</span>'+
-        '<input type="text" id="layer1_color">'+
-      '</div>'+
-      '<div class="form-group">'+
-        '<span>layer2： From</span>'+
-        '<input type="text" id="layer2_from">'+
-        '<span>To:</span>'+
-        '<input type="text" id="layer2_to">'+
-        '<span>颜色:</span>'+
-        '<input type="text" id="layer2_color">'+
-      '</div>'+
-      '<div class="form-group">'+
-        '<span>layer3： From</span>'+
-        '<input type="text" id="layer3_from">'+
-        '<span>To:</span>'+
-        '<input type="text" id="layer3_to">'+
-        '<span>颜色:</span>'+
-        '<input type="text" id="layer3_color">'+
-      '</div>'+
-    '</div>',
+    configHtml :  '<div class="attr-header">属性设置<button data-target="#close" class="close">&times;</button></div>' +
+                    '<div class="attr-body">' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">标题</span>' +
+                        '<input class="w150p" id = "widget_title" type="text" placeholder="标题名称">' +
+                      '</div>' +
+                      '<button class="btn mr10p" id = "widget_update" type="button">提交</button><br>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">控件宽度</span>' +
+                        '<input class="w50p" id="widget_width" type="text">' +
+                      '</div>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">控件高度</span>' +
+                        '<input class="w50p" id="widget_height" type="text">' +
+                      '</div>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">最小值</span>' +
+                        '<input class="w50p" id="min_value" type="text">' +
+                      '</div>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">最大值</span>' +
+                        '<input class="w50p" id="max_value" type="text">' +
+                      '</div>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">单位</span>' +
+                        '<input class="w50p" id="value_unit" type="text">' +
+                      '</div><br>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer1.from</span>' +
+                        '<input class="w50p" id="layer1_from" type="text">' +
+                      '</div>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer1.to</span>' +
+                        '<input class="w50p" id="layer1_to" type="text">' +
+                      '</div>' +    
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer1.color</span>' +
+                        '<input class="w100p" id="layer1_color" type="text">' +
+                      '</div><br>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer2.from</span>' +
+                        '<input class="w50p" id="layer2_from" type="text">' +
+                      '</div>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer2.to</span>' +
+                        '<input class="w50p" id="layer2_to" type="text">' +
+                      '</div>' +    
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer2.color</span>' +
+                        '<input class="w100p" id="layer2_color" type="text">' +
+                      '</div><br>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer3.from</span>' +
+                        '<input class="w50p" id="layer3_from" type="text">' +
+                      '</div>' +
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer3.to</span>' +
+                        '<input class="w50p" id="layer3_to" type="text">' +
+                      '</div>' +    
+                      '<div class="input-prepend mr10p">' +
+                        '<span class="add-on">layer3.color</span>' +
+                        '<input class="w100p" id="layer3_color" type="text">' +
+                      '</div>' +                  
+                ' </div>',
 
     create: function() {
         var e = $(".demo #hc_dial");
@@ -65,7 +87,7 @@ var hc_dial = {
         var properties = {
             tid: n,
             title:"温度",
-            //width: 240,
+            width: 300,
             height: 300,
             max: 100,
             min: 0,
@@ -87,6 +109,7 @@ var hc_dial = {
 
     showAttr: function(properties){
         $("#widget_title").val(properties.title);
+        $("#widget_width").val(properties.width);
         $("#widget_height").val(properties.height);
         $("#min_value").val(properties.min);
         $("#max_value").val(properties.max);
@@ -106,6 +129,7 @@ var hc_dial = {
     },
     updateAttr: function(divid){
         var title = $("#widget_title").val();
+        var width = parseInt($("#widget_width").val());
         var height = parseInt($("#widget_height").val());
         var max = parseInt($("#max_value").val());
         var min = parseInt($("#min_value").val());
@@ -121,7 +145,8 @@ var hc_dial = {
         var layer3_color = $("#layer3_color").val();               
         var properties = {
             tid: divid,
-            title:title,
+            title: title,
+            width: width,
             height: height,
             max: max,
             min: min,
@@ -131,91 +156,6 @@ var hc_dial = {
             layer3:{from:layer3_from,to:layer3_to,color:layer3_color}
         };
         var ui = new HCDialUI(properties);
-        console.log(JSON.stringify(properties));
-        setTimeout(function(){HCDialUI(properties);},500);
-
-        
-/*        var dial = new Highcharts.Chart({
-            chart: {
-                type:"gauge",
-                renderTo: $('#'+divid)[0],
-                height: 300,
-            },
-            title: {
-                text: "湿度111"
-            },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            pane: {
-                startAngle: -150,
-                endAngle: 150,
-                background: [{
-                    backgroundColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                        stops: [
-                            [0, '#FFF'],
-                            [1, '#333']
-                        ]
-                    },
-                    borderWidth: 0,
-                    outerRadius: '109%'
-                }, {
-                    backgroundColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                        stops: [
-                            [0, '#333'],
-                            [1, '#FFF']
-                        ]
-                    },
-                    borderWidth: 1,
-                    outerRadius: '107%'
-                }, {
-                    // default background
-                }, {
-                    backgroundColor: '#DDD',
-                    borderWidth: 0,
-                    outerRadius: '105%',
-                    innerRadius: '103%'
-                }]
-            },
-            // the value axis
-            yAxis: {
-                min: 0,
-                max: 100,
-
-                minorTickInterval: 'auto',
-                minorTickWidth: 1,
-                minorTickLength: 10,
-                minorTickPosition: 'inside',
-                minorTickColor: '#666',
-
-                tickPixelInterval: 30,
-                tickWidth: 2,
-                tickPosition: 'inside',
-                tickLength: 10,
-                tickColor: '#666',
-                labels: {
-                    step: 2,
-                    rotation: 'auto'
-                },
-                title: {
-                    text: "%"
-                },
-                plotBands: [{ from: 30, to: 70, color: green }, { from: 0, to: 30, color: yellow }, { from: 70, to: 100, color: red }]
-            },
-
-            series: [{
-                name: "湿度",
-                data: [0],
-                tooltip: {
-                    valueSuffix: "%"
-                }
-            }]
-          });*/
     }
 }
 
@@ -223,12 +163,11 @@ function HCDialUI(prop) {
 
   this.properties = prop;
 
-  console.log("prop:"+prop);
-
   var dial = new Highcharts.Chart({
     chart: {
         type:"gauge",
         renderTo: $('#'+prop.tid)[0],
+        width: prop.width,
         height: prop.height,
     },
     title: {

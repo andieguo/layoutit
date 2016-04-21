@@ -5,32 +5,44 @@ var fs_temperature = {
                  '<div class="preview">温度计</div>' +
                  '<div class="view">' +
                    '<div id="fs_temperature">'+
-                    '</div>'+
-                  '</div>'+
+                   '</div>'+
+                 '</div>'+
          '</div>',
 
   configHtml :  '<div class="attr-header">属性设置<button data-target="#close" class="close">&times;</button></div>' +
                 '<div class="attr-body">' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">标题</span>' +
-                    '<input class="w150p" type="text" placeholder="标题名称">' +
+                    '<input class="w150p" id = "widget_title" type="text" placeholder="标题名称">' +
                   '</div>' +
-                  '<button class="btn mr10p" type="button">提交</button><br>' +
+                  '<button class="btn mr10p" id="widget_update" type="button">提交</button><br>' +
                   '<div class="input-prepend mr10p">' +
-                    '<span class="add-on">Mac地址</span>' +
-                    '<input class="w200p" type="text">' +
-                  '</div>' +
-                  '<div class="input-prepend mr10p">' +
-                    '<span class="add-on">范围</span>' +
-                    '<input class="w100p" type="text">' +
+                    '<span class="add-on">控件宽度</span>' +
+                    '<input class="w50p" id ="widget_width" type="text">' +
                   '</div>' +
                   '<div class="input-prepend mr10p">' +
-                    '<span class="add-on">颜色</span>' +
-                    '<input class="w50p" type="text">' +
+                    '<span class="add-on">控件高度</span>' +
+                    '<input class="w50p" id ="widget_height" type="text">' +
+                  '</div>' +   
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">最小值</span>' +
+                    '<input class="w50p" id ="min_value" type="text">' +
+                  '</div>' +  
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">最大值</span>' +
+                    '<input class="w50p" id ="max_value" type="text">' +
+                  '</div>' + 
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">单位</span>' +
+                    '<input class="w50p" id ="value_unit" type="text">' +
+                  '</div>' +                                                                    
+                  '<div class="input-prepend mr10p">' +
+                    '<span class="add-on">背景颜色</span>' +
+                    '<input class="w100p" id="bg_color" type="text">' +
                   '</div>' +
                   '<div class="input-prepend mr10p">' +
-                    '<span class="add-on">横轴</span>' +
-                    '<input class="w50p" type="text">' +
+                    '<span class="add-on">填充颜色</span>' +
+                    '<input class="w100p" id="fill_color" type="text">' +
                   '</div>' +
                 ' </div>',
 
@@ -41,11 +53,12 @@ var fs_temperature = {
 		e.attr("id", n);
     var properties = {
         tid: n,
+        title: "温度",
         width: 240,
         height: 200,
-        upperLimit: 100,
-        lowerLimit: 0,
-        numberSuffix: "℃",
+        max: 100,
+        min: 0,
+        unit: "℃",
         bgcolor: "#f3f5f7",
         gaugeFillColor: "#ffc420"
     };
@@ -57,6 +70,43 @@ var fs_temperature = {
 
   getUI: function(properties){
       var ui = new TemperatureUI(properties);
+      return ui;
+  },
+
+  showAttr: function(properties){
+      $("#widget_title").val(properties.title);
+      $("#widget_width").val(properties.width);
+      $("#widget_height").val(properties.height);
+      $("#min_value").val(properties.min);
+      $("#max_value").val(properties.max);
+      $("#value_unit").val(properties.unit);
+
+      $("#bg_color").val(properties.bgcolor);
+      $("#fill_color").val(properties.gaugeFillColor);   
+  },
+  updateAttr: function(divid){
+      var title = $("#widget_title").val();
+      var width = parseInt($("#widget_width").val());
+      var height = parseInt($("#widget_height").val());
+      var max = parseInt($("#max_value").val());
+      var min = parseInt($("#min_value").val());
+      var unit = $("#value_unit").val();
+      var bgcolor = $("#bg_color").val();
+      var gaugeFillColor = $("#fill_color").val();
+              
+      var properties = {
+          tid: divid,
+          title: title,
+          width: width,
+          height: height,
+          max: max,
+          min: min,
+          unit: unit,
+          bgcolor: bgcolor,
+          gaugeFillColor: gaugeFillColor
+      };
+      var ui = new TemperatureUI(properties);
+      ui.render();
       return ui;
   }
 }
@@ -78,9 +128,9 @@ function TemperatureUI(prop) {
     "dataFormat": "json",
     "dataSource": {
         "chart": {
-            "upperLimit": prop.upperLimit,
-            "lowerLimit": prop.lowerLimit,
-            "numberSuffix": prop.numberSuffix,
+            "upperLimit": prop.max,
+            "lowerLimit": prop.min,
+            "numberSuffix": prop.unit,
             "decimals": "1",
             "showhovereffect": "1",
             "gaugeFillColor": prop.gaugeFillColor,

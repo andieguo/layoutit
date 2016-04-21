@@ -500,12 +500,7 @@ $(document).ready(function() {
 			var configHtml = gUiObject[widgetIndex].configHtml;//编辑代码
 			$("#attrModal").html(configHtml);
 			gUiObject[widgetIndex].showAttr(property);//显示控件属性值
-			/*
-			uid = uid.substring(0,uid.lastIndexOf("_"));
-			console.log(uid);
-			var ui = gUiObject[uid].getUI(property);
-			var configHtml = gUiObject[uid].configHtml;//编辑代码
-			$("#attrModal").html(configHtml);*/
+
 			$("#attrModal").fadeIn(500);
 			var attrModalHeigh = $("#attrModal").outerHeight(true);
 			$("body").animate({paddingBottom: attrModalHeigh + 20},500);
