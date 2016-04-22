@@ -7,10 +7,7 @@ var hc_dial = {
                    '<div id="hc_dial">'+
                     '</div>'+
                  '</div>'+
-            '</div>'+
-         '<script>'+
-            'getDial("#hc_dial", "", "温度", "℃", 0, 100, { layer1: { from: 30, to: 50, color: green }, layer2: { from: 0, to: 30, color: yellow }, layer3: { from: 50, to: 100, color: red } });'+
-         '</script>',
+            '</div>',
 
     configHtml :  '<div class="attr-header">属性设置<button data-target="#close" class="close">&times;</button></div>' +
                     '<div class="attr-body">' +
@@ -156,7 +153,14 @@ var hc_dial = {
         };
         var ui = new HCDialUI(properties);
         return ui;
-    }
+    },
+    
+    //控件赋值
+    setValue: function(divid,val){
+        var chart = $("#"+divid).highcharts();
+        var point = chart.series[0].points[0];
+        point.update(val);
+    } 
 }
 
 function HCDialUI(prop) {

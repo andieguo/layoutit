@@ -1,10 +1,10 @@
-var fs_temperature = {
+var fs_cup = {
 
-	html : ' <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>'+
+  html : ' <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>'+
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
-                 '<div class="preview">温度计</div>' +
+                 '<div class="preview">量杯</div>' +
                  '<div class="view">' +
-                   '<div id="fs_temperature">'+
+                   '<div id="fs_cup">'+
                    '</div>'+
                  '</div>'+
          '</div>',
@@ -46,29 +46,29 @@ var fs_temperature = {
                 ' </div>',
 
   create: function(){
-  	var e = $(".demo #fs_temperature");
-		var t = randomNumber();
-		var n = "fs_temperature_" + t;
-		e.attr("id", n);
+    var e = $(".demo #fs_cup");
+    var t = randomNumber();
+    var n = "fs_cup_" + t;
+    e.attr("id", n);
     var properties = {
         tid: n,
-        title: "温度",
-        width: 240,
+        title: "湿度",
+        width: 140,
         height: 200,
         max: 100,
         min: 0,
-        unit: "℃",
-        bgcolor: "#f3f5f7",
-        gaugeFillColor: "#ffc420"
+        unit: "%",
+        bgcolor: "#f2f5f7",
+        gaugeFillColor: "#5aff00"
     };
-    var ui = new TemperatureUI(properties);
+    var ui = new FSCupUI(properties);
     console.log("ui:"+ui);
     ui.render();
     return ui;
   },
 
   getUI: function(properties){
-      var ui = new TemperatureUI(properties);
+      var ui = new FSCupUI(properties);
       return ui;
   },
 
@@ -105,7 +105,7 @@ var fs_temperature = {
           bgcolor: bgcolor,
           gaugeFillColor: gaugeFillColor
       };
-      var ui = new TemperatureUI(properties);
+      var ui = new FSCupUI(properties);
       ui.render();
       return ui;
   },
@@ -115,7 +115,7 @@ var fs_temperature = {
   } 
 }
 
-function TemperatureUI(prop) {
+function FSCupUI(prop) {
 
   this.properties = prop;
 
@@ -125,29 +125,28 @@ function TemperatureUI(prop) {
   };
 
   var csatGauge = new FusionCharts({
-    "id": "id_" + prop.tid,
-    "type": "thermometer",
-    "renderAt": prop.tid,
-    "width": prop.width,
-    "height": prop.height,
-    "dataFormat": "json",
-    "dataSource": {
-        "chart": {
-            "upperLimit": prop.max,
-            "lowerLimit": prop.min,
-            "numberSuffix": prop.unit,
-            "decimals": "1",
-            "showhovereffect": "1",
-            "gaugeFillColor": prop.gaugeFillColor,
-            "gaugeBorderColor": "#008ee4",
-            "showborder": "0",
-            "bgcolor": prop.bgcolor,
-            "tickmarkgap": "5",
-            "theme": "fint"
-        },
-        "value": "28"
-    }
-  });
+      "id": "id_"+prop.tid,
+      "type": "cylinder",
+      "renderAt": prop.tid,
+      "width": prop.width,
+      "height": prop.height,
+      "dataFormat": "json",
+      "dataSource": {
+          "chart": {
+              "manageresize": "1",
+              "upperlimit": prop.max,
+              "lowerlimit": prop.min,
+              "tickmarkgap": "5",
+              "numbersuffix": prop.unit,
+              "refreshinterval": "3",
+              "showborder": "0",
+              "bgcolor": prop.bgcolor,
+              "showhovereffect": "1",
+              "cylfillcolor": prop.gaugeFillColor
+          },
+          "value": "0"
+      }
+    });
   
   var charData = csatGauge.getChartData("json");
   this.render = function(){

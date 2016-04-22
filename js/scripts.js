@@ -1,3 +1,15 @@
+function placeOfChar(str, n, char) {
+    var index = str.indexOf(char);
+    var i = 0;
+    while (index != -1) {
+        i++;
+        if (i == n)
+            break;
+        index = str.indexOf(char, index + 1);
+    }
+    return index;
+}
+
 function supportstorage() {
 	if (typeof window.localStorage=='object') 
 		return true;
@@ -386,7 +398,9 @@ var gUiObject = {
 	"ui_test" : ui_test,
 	"fs_temperature": fs_temperature,
 	"hc_dial": hc_dial,
-	"fs_dial": fs_dial
+	"fs_dial": fs_dial,
+	"fs_cup": fs_cup,
+	"hc_curve": hc_curve
 };
 <!--自定义UI配置全局变量--> 
 var layoutconfig;
@@ -452,6 +466,10 @@ $(document).ready(function() {
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
 					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
 					localStorage.setItem("layoutconfig",layoutconfig);
+
+					setTimeout(function(){
+						gUiObject[uid].setValue(ui.properties.tid,30);
+					},5000);
 					// console.log("upperlimit:"+ui.getProperty("upperlimit"));
 					// console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
 					// console.log("ui:"+ui);
@@ -506,21 +524,17 @@ $(document).ready(function() {
 			$("body").animate({paddingBottom: attrModalHeigh + 20},500);
 			$(".demo").animate({minHeight: $(window).height() - 130 - attrModalHeigh},500);
 			$("body").css("min-height", $(window).height() - 90 - attrModalHeigh);
-
-        	/*console.log("ui:"+ui);
-        	console.log("upperlimit:"+ui.getProperty("upperlimit"));
-        	console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
-        	console.log("ui:"+ui);
-        	ui.setProperty("lowerlimit",2);
-        	ui.setProperty("upperlimit",200);
-        	ui.setValue(56);
-        	console.log("upperlimit:"+ui.getProperty("upperlimit"));
-        	console.log("child:"+$(this).parent().parent().find('.view').children().html(""));
-        	ui.render();*/
 		}
 
 		//根据新属性更新控件样式
 		$(".attr-body input").blur(function(){
+			/*先更新id，再从缓存中删除原id、属性*/
+	        new_uid = uid.substring(0,placeOfChar(uid,2,'_')+1) + randomNumber();
+	        $("#"+uid).attr("id",new_uid);  
+	        layoutconfig.remove(uid);//删除原记录
+	        localStorage.setItem("layoutconfig",layoutconfig);
+	        uid = new_uid;
+
 			var ui = gUiObject[widgetIndex].updateAttr(uid);//动态更新控件显示
 			layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
 			localStorage.setItem("layoutconfig",layoutconfig);			

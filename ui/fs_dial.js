@@ -1,13 +1,13 @@
 var fs_dial = {
 
-	html : ' <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>'+
-                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
-                 '<div class="preview">表盘-fs</div>' +
-                 '<div class="view">' +
-                   '<div id="fs_dial">'+
-                    '</div>'+
-                 '</div>'+
-           '</div>',
+  	html : ' <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>'+
+                   '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
+                   '<div class="preview">表盘-fs</div>' +
+                   '<div class="view">' +
+                     '<div id="fs_dial">'+
+                      '</div>'+
+                   '</div>'+
+             '</div>',
 
     configHtml :'<div class="attr-header">属性设置<button data-target="#close" class="close">&times;</button></div>' +
                     '<div class="attr-body">' +
@@ -75,9 +75,9 @@ var fs_dial = {
 
     create: function(){
     	var e = $(".demo #fs_dial");
-		var t = randomNumber();
-		var n = "fs_dial_" + t;
-		e.attr("id", n);
+  		var t = randomNumber();
+  		var n = "fs_dial_" + t;
+  		e.attr("id", n);
 
         var properties = {
             tid: n,
@@ -126,7 +126,7 @@ var fs_dial = {
     updateAttr: function(divid){
         var title = $("#widget_title").val();
         var width = parseInt($("#widget_width").val());
-        var height = parseInt($("#widget_height").val());
+        var height = parseInt($("#widget_height").val());  
         var max = parseInt($("#max_value").val());
         var min = parseInt($("#min_value").val());
         var unit = $("#value_unit").val();
@@ -138,7 +138,11 @@ var fs_dial = {
         var layer2_color = ($("#layer2_color").val()).substring(1); 
         var layer3_from = $("#layer3_from").val();
         var layer3_to = $("#layer3_to").val();
-        var layer3_color = ($("#layer3_color").val()).substring(1);               
+        var layer3_color = ($("#layer3_color").val()).substring(1);     
+
+        $("#"+divid).html("");
+
+
         var properties = {
             tid: divid,
             title: title,
@@ -151,18 +155,24 @@ var fs_dial = {
             layer2:{"minvalue":layer2_from,"maxvalue":layer2_to,"code":layer2_color,"alpha": "80"},
             layer3:{"minvalue":layer3_from,"maxvalue":layer3_to,"code":layer3_color,"alpha": "80"}
         };
+
         var ui = new FSDialUI(properties);
         ui.render();
         return ui;
+    },
+
+    //控件赋值
+    setValue: function(divid,val){
+      FusionCharts.items["id_"+divid].feedData( "value="+ val );
     }    
 
 }
 
 function FSDialUI(prop) {
-
     this.properties = prop;
        
     var csatGauge = new FusionCharts({
+        "id": "id_"+prop.tid,
         "type": "angulargauge",
         "renderAt": prop.tid,
         "width": prop.width,
