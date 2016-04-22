@@ -17,8 +17,7 @@ var hc_dial = {
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">标题</span>' +
                         '<input class="w150p" id = "widget_title" type="text" placeholder="标题名称">' +
-                      '</div>' +
-                      '<button class="btn mr10p" id = "widget_update" type="button">提交</button><br>' +
+                      '</div><br>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件宽度</span>' +
                         '<input class="w50p" id="widget_width" type="text">' +
@@ -156,6 +155,7 @@ var hc_dial = {
             layer3:{from:layer3_from,to:layer3_to,color:layer3_color}
         };
         var ui = new HCDialUI(properties);
+        return ui;
     }
 }
 

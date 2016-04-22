@@ -520,9 +520,11 @@ $(document).ready(function() {
 		}
 
 		//根据新属性更新控件样式
-		$("#widget_update").click(function(){
-			gUiObject[widgetIndex].updateAttr(uid);//显示控件属性值
-		});	
+		$(".attr-body input").blur(function(){
+			var ui = gUiObject[widgetIndex].updateAttr(uid);//动态更新控件显示
+			layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
+			localStorage.setItem("layoutconfig",layoutconfig);			
+		});
 	});
 
 	<!--属性窗口关闭-->
