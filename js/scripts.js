@@ -467,17 +467,15 @@ $(document).ready(function() {
 					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
 					localStorage.setItem("layoutconfig",layoutconfig);
 
-					setTimeout(function(){
-						gUiObject[uid].setValue(ui.properties.tid,30);
-					},5000);
-					// console.log("upperlimit:"+ui.getProperty("upperlimit"));
-					// console.log("lowerlimit:"+ui.getProperty("lowerlimit"));
-					// console.log("ui:"+ui);
-					// ui.setValue(67);
-					// ui.setProperty("lowerlimit",);
-					// ui.setProperty("upperlimit",200);
-					// ui.setValue(60);
-					// console.log("upperlimit:"+ui.getProperty("upperlimit"));
+/*					setTimeout(function(){
+						//gUiObject[uid].setValue(ui.properties.tid,30);
+						var data = [[1398368037823,4],[1398470377015,6],
+									[1398556786135,7],[1398643177964,3],
+									[1398710239656,2],[1398784852700,7]];
+						gUiObject[uid].setData(ui.properties.tid,data);
+
+						setTimeout(function(){gUiObject[uid].addPoint(ui.properties.tid,13)},2000);
+					},5000);*/
 				}
 			}
 			if(stopsave>0) stopsave--;

@@ -45,7 +45,7 @@ var hc_curve = {
             title:"温度历史数据",
             width: 600,
             height: 200,
-            ctype: 'spline',
+            ctype: 'spline',//'line', 'column', 'spline', 'area', 'areaspline'
             unit: "℃",
             data: [[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]]
         };
@@ -87,11 +87,21 @@ var hc_curve = {
         return ui;
     },
     
-    //控件赋值
-    setValue: function(divid,val){
-/*        var chart = $("#"+divid).highcharts();
-        var point = chart.series[0].points[0];
-        point.update(val);*/
+    //曲线控件赋值
+    setData: function(divid,data){
+        var chart = $("#"+divid).highcharts();
+        chart.series[0].setData(data);
+    },
+    
+    //动态增加数据点
+    addPoint:function(divid,val){
+        var chart = $("#"+divid).highcharts();
+        var series = chart.series[0];
+        var point = {   //获取新的点，并返回给动态图表
+            x: (new Date()).getTime() + 28800000,
+            y: parseFloat(val)
+        };
+        series.addPoint([point.x, point.y], true, true);
     } 
 }
 
@@ -104,7 +114,9 @@ function HCCurveUI(prop) {
             renderTo: $('#'+prop.tid)[0],
             type: prop.ctype,
             animation: false,
-            zoomType: 'x'
+            zoomType: 'x',
+            width: prop.width,
+            height: prop.height,
         },
         legend: {
             enabled: false
