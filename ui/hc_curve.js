@@ -25,7 +25,11 @@ var hc_curve = {
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">线形</span>' +
-                        '<input class="w50p" id="curve_type" type="text">' +
+                        '<select class="w100p" id="curve_type">' +
+                            '<option>1</option>' +
+                            '<option>2</option>' +
+                            '<option>3</option>' +
+                        '</select>' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">单位</span>' +
