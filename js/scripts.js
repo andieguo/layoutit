@@ -525,7 +525,7 @@ $(document).ready(function() {
 		}
 
 		//根据新属性更新控件样式
-		$(".attr-body input").blur(function(){
+		$(".widgetAttrChange").change(function(){
 			/*先更新id，再从缓存中删除原id、属性*/
 	        new_uid = uid.substring(0,placeOfChar(uid,2,'_')+1) + randomNumber();
 	        $("#"+uid).attr("id",new_uid);  
@@ -537,6 +537,7 @@ $(document).ready(function() {
 			layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
 			localStorage.setItem("layoutconfig",layoutconfig);			
 		});
+
 	});
 
 	<!--属性窗口关闭-->

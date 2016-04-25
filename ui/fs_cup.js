@@ -13,35 +13,35 @@ var fs_cup = {
                 '<div class="attr-body">' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">标题</span>' +
-                    '<input class="w150p" id = "widget_title" type="text" placeholder="标题名称">' +
+                    '<input class="w150p widgetAttrChange" id = "widget_title" type="text" placeholder="标题名称">' +
                   '</div><br>' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">控件宽度</span>' +
-                    '<input class="w50p" id ="widget_width" type="text">' +
+                    '<input class="w50p widgetAttrChange" id ="widget_width" type="text">' +
                   '</div>' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">控件高度</span>' +
-                    '<input class="w50p" id ="widget_height" type="text">' +
+                    '<input class="w50p widgetAttrChange" id ="widget_height" type="text">' +
                   '</div>' +   
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">最小值</span>' +
-                    '<input class="w50p" id ="min_value" type="text">' +
+                    '<input class="w50p widgetAttrChange" id ="min_value" type="text">' +
                   '</div>' +  
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">最大值</span>' +
-                    '<input class="w50p" id ="max_value" type="text">' +
+                    '<input class="w50p widgetAttrChange" id ="max_value" type="text">' +
                   '</div>' + 
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">单位</span>' +
-                    '<input class="w50p" id ="value_unit" type="text">' +
+                    '<input class="w50p widgetAttrChange" id ="value_unit" type="text">' +
                   '</div>' +                                                                    
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">背景颜色</span>' +
-                    '<input class="w100p" id="bg_color" type="text">' +
+                    '<input class="w100p widgetAttrChange" id="bg_color" type="text">' +
                   '</div>' +
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">填充颜色</span>' +
-                    '<input class="w100p" id="fill_color" type="text">' +
+                    '<input class="w100p widgetAttrChange" id="fill_color" type="text">' +
                   '</div>' +
                 ' </div>',
 

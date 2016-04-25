@@ -13,63 +13,63 @@ var fs_dial = {
                     '<div class="attr-body">' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">标题</span>' +
-                        '<input class="w150p" id = "widget_title" type="text" placeholder="标题名称">' +
+                        '<input class="w150p widgetAttrChange" id = "widget_title" type="text" placeholder="标题名称">' +
                       '</div><br>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件宽度</span>' +
-                        '<input class="w50p" id="widget_width" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="widget_width" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件高度</span>' +
-                        '<input class="w50p" id="widget_height" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="widget_height" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">最小值</span>' +
-                        '<input class="w50p" id="min_value" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="min_value" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">最大值</span>' +
-                        '<input class="w50p" id="max_value" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="max_value" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">单位</span>' +
-                        '<input class="w50p" id="value_unit" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="value_unit" type="text">' +
                       '</div><br>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer1.from</span>' +
-                        '<input class="w50p" id="layer1_from" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="layer1_from" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer1.to</span>' +
-                        '<input class="w50p" id="layer1_to" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="layer1_to" type="text">' +
                       '</div>' +    
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer1.color</span>' +
-                        '<input class="w100p" id="layer1_color" type="text">' +
+                        '<input class="w100p widgetAttrChange" id="layer1_color" type="text">' +
                       '</div><br>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer2.from</span>' +
-                        '<input class="w50p" id="layer2_from" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="layer2_from" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer2.to</span>' +
-                        '<input class="w50p" id="layer2_to" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="layer2_to" type="text">' +
                       '</div>' +    
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer2.color</span>' +
-                        '<input class="w100p" id="layer2_color" type="text">' +
+                        '<input class="w100p widgetAttrChange" id="layer2_color" type="text">' +
                       '</div><br>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer3.from</span>' +
-                        '<input class="w50p" id="layer3_from" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="layer3_from" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer3.to</span>' +
-                        '<input class="w50p" id="layer3_to" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="layer3_to" type="text">' +
                       '</div>' +    
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">layer3.color</span>' +
-                        '<input class="w100p" id="layer3_color" type="text">' +
+                        '<input class="w100p widgetAttrChange" id="layer3_color" type="text">' +
                       '</div>' +                  
                 ' </div>',           
 

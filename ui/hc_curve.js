@@ -13,27 +13,29 @@ var hc_curve = {
                     '<div class="attr-body">' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">标题</span>' +
-                        '<input class="w150p" id = "widget_title" type="text" placeholder="标题名称">' +
+                        '<input class="w150p widgetAttrChange" id = "widget_title" type="text" placeholder="标题名称">' +
                       '</div><br>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件宽度</span>' +
-                        '<input class="w50p" id="widget_width" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="widget_width" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件高度</span>' +
-                        '<input class="w50p" id="widget_height" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="widget_height" type="text">' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">线形</span>' +
-                        '<select class="w100p" id="curve_type">' +
-                            '<option>1</option>' +
-                            '<option>2</option>' +
-                            '<option>3</option>' +
+                        '<select class="w100p widgetAttrChange" id="curve_type">' +
+                            '<option value="spline" selected="selected">spline</option>' +
+                            '<option value="line">line</option>' +
+                            '<option value="column">column</option>' +
+                            '<option value="area">area</option>' +
+                            '<option value="areaspline">areaspline</option>' +
                         '</select>' +
                       '</div>' +
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">单位</span>' +
-                        '<input class="w50p" id="value_unit" type="text">' +
+                        '<input class="w50p widgetAttrChange" id="value_unit" type="text">' +
                       '</div>' +        
                 ' </div>',
 
