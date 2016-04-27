@@ -25,6 +25,9 @@
 	margin-top: -10px;
 	font-size: 9px;
 }
+.alarm .button {text-align: right;}
+.alarm img {display: block;margin: 0 auto;width: 160px;}
+.alarm .value {text-align: center;}
 /*fusioncharts*/
 .fs-clear {
     text-align: center;
