@@ -4,7 +4,7 @@ var fs_temperature = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">温度计</div>' +
                  '<div class="view">' +
-                   '<div id="fs_temperature">'+
+                   '<div class="fs-clear" id="fs_temperature">'+
                    '</div>'+
                  '</div>'+
          '</div>',
