@@ -400,16 +400,27 @@ var gUiObject = {
 	"hc_dial": hc_dial,
 	"fs_dial": fs_dial,
 	"fs_cup": fs_cup,
-	"hc_curve": hc_curve
+	"hc_curve": hc_curve,
+	"layout_subsys": layout_subsys,
+	"ctr_switch": ctr_switch
 };
 <!--自定义UI配置全局变量--> 
 var layoutconfig;
 $(document).ready(function() {
 	var tabContent = "";
+	var layoutContent = "";
 	for(var p in gUiObject){
-		tabContent = gUiObject[p].html + tabContent;
+		if(p.indexOf("layout") >= 0){//布局类控件
+			layoutContent = gUiObject[p].html + layoutContent;
+		}
+		else{//其它控件
+			tabContent = gUiObject[p].html + tabContent;
+		}
 	}
-	$("#elmComponents").html(tabContent + $("#elmComponents").html());	
+	$("#estRows").html($("#estRows").html() + layoutContent);//
+	$("#elmComponents").html(tabContent + $("#elmComponents").html());//
+
+
 	CKEDITOR.disableAutoInline = true;
 	restoreData();
 	var contenthandle = CKEDITOR.replace( 'contenteditor' ,{
@@ -431,6 +442,16 @@ $(document).ready(function() {
 			t.helper.width(400)
 		},
 		stop: function(e, t) {
+
+			var uid = t.helper.children(".view").children().attr("id");
+			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
+				if(uid.indexOf("layout") >= 0){//自定义ui控件
+					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
+					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
+					localStorage.setItem("layoutconfig",layoutconfig);
+				}
+			}
+
 			$(".demo .column").sortable({
 				opacity: .35,
 				connectWith: ".column",
@@ -462,20 +483,10 @@ $(document).ready(function() {
 			handleJsIds();
 			var uid = t.helper.children(".view").children().attr("id");
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
-				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0){//自定义ui控件
+				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0 || uid.indexOf("ctr") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
 					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
 					localStorage.setItem("layoutconfig",layoutconfig);
-
-/*					setTimeout(function(){
-						//gUiObject[uid].setValue(ui.properties.tid,30);
-						var data = [[1398368037823,4],[1398470377015,6],
-									[1398556786135,7],[1398643177964,3],
-									[1398710239656,2],[1398784852700,7]];
-						gUiObject[uid].setData(ui.properties.tid,data);
-
-						setTimeout(function(){gUiObject[uid].addPoint(ui.properties.tid,13)},2000);
-					},5000);*/
 				}
 			}
 			if(stopsave>0) stopsave--;
@@ -489,6 +500,17 @@ $(document).ready(function() {
 		currenteditor = $(this).parent().parent().find('.view');
 		var eText = currenteditor.html();
 		contenthandle.setData(eText);
+	});
+
+	//开关类控件按键触发
+	$(".switch_button").click(function(){
+		var src = $(this).attr("src");
+		if(src.indexOf("off") >=0 ){
+	      $(this).attr("src","img/on.png");
+	    }
+	    else{
+	      $(this).attr("src","img/off.png");
+	    }
 	});
 
 	<!--控件属性编辑--> 
