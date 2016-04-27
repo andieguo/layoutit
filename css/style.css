@@ -28,16 +28,6 @@
 .alarm .button {text-align: right;}
 .alarm img {display: block;margin: 0 auto;width: 160px;}
 .alarm .value {text-align: center;}
-/*fusioncharts*/
-.fs-clear {
-    text-align: center;
-}
-.fs-clear text {
-    display: none;
-}
-.fs-clear g text {
-    display: inherit;
-}
 /* base */
 .mr10p {
 	margin-right: 10px;

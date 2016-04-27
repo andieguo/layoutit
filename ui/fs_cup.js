@@ -4,7 +4,7 @@ var fs_cup = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">量杯</div>' +
                  '<div class="view">' +
-                   '<div class="fs-clear" id="fs_cup">'+
+                   '<div id="fs_cup">'+
                    '</div>'+
                  '</div>'+
          '</div>',
