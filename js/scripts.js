@@ -17,36 +17,20 @@ function supportstorage() {
 		return false;		
 }
 
-function handleSaveLayout() {
+function handleSaveTemplateAttr() {
 	var e = $(".demo").html();
 	if (!stopsave && e != window.demoHtml) {
 		stopsave++;
 		window.demoHtml = e;
-		saveLayout();
+		saveTemplateAttr();
 		stopsave--;
 	}
 }
 
-var layouthistory; 
-function saveLayout(){
-	var data = layouthistory;
-	if (!data) {
-		data={};
-		data.count = 0;
-		data.list = [];
-	}
-	if (data.list.length>data.count) {
-		for (i=data.count;i<data.list.length;i++)
-			data.list[i]=null;
-	}
-	data.list[data.count] = window.demoHtml;
-	data.count++;
+function saveTemplateAttr(){
 	if (supportstorage()) {
-		localStorage.setItem("layoutconfig",JSON.stringify(layoutconfig));
-		localStorage.setItem("layoutdata",JSON.stringify(data));
+		localStorage.setItem("uiTemplateObj",JSON.stringify(uiTemplateObj));
 	}
-	layouthistory = data;
-	//console.log(data);
 	/*$.ajax({  
 		type: "POST",  
 		url: "/build/saveLayout",  
@@ -84,7 +68,7 @@ function undoLayout() {
 		data.count--;
 		$('.demo').html(window.demoHtml);
 		if (supportstorage()) {
-			localStorage.setItem("layoutdata",JSON.stringify(data));
+			//localStorage.setItem("layoutdata",JSON.stringify(data));
 		}
 		return true;
 	}
@@ -107,7 +91,7 @@ function redoLayout() {
 			data.count++;
 			$('.demo').html(window.demoHtml);
 			if (supportstorage()) {
-				localStorage.setItem("layoutdata",JSON.stringify(data));
+				//localStorage.setItem("layoutdata",JSON.stringify(data));
 			}
 			return true;
 		}
@@ -231,9 +215,12 @@ function configurationElm(e, t) {
 function removeElm() {
 	$(".demo").delegate(".remove", "click", function(e) {
 		var uid = $(this).parent().find('.view').children().attr("id");
-		if(typeof(uid)!='undefined' && (uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0)){//控件中的<div id>属性是否存在 
-			layoutconfig.remove(uid);
-			localStorage.setItem("layoutconfig",layoutconfig);
+		if(typeof(uid)!='undefined'){
+			if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0
+					|| uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0
+					|| uid.indexOf("page") >= 0 || uid.indexOf("layout") >= 0){//控件中的<div id>属性是否存在 
+				delete uiTemplateObj[templateId][uid];
+			}
 		}
 		e.preventDefault();
 		$(this).parent().remove();
@@ -244,11 +231,8 @@ function removeElm() {
 }
 function clearDemo() {
 	$(".demo").empty();
-	layouthistory = null;
 	if (supportstorage()){
-		layoutconfig = new Map();
-		localStorage.removeItem("layoutconfig");
-		localStorage.removeItem("layoutdata");
+		localStorage.removeItem("uiTemplateObj");
 	}
 		
 }
@@ -327,7 +311,7 @@ $(window).resize(function() {
 /**将编辑页面内容中的image部分清空**/
 function removeImage(){
 	$("#tmpID").html($(".demo").html());//将编辑页面内容添加到临时编辑区域
-	var data = localStorage.getItem("layoutconfig");
+	var data = localStorage.getItem("uiTemplateObj");
 	data = JSON.parse(data);
 	for(var i=0;i<data.arr.length;i++){
 		var uid = data.arr[i].key;
@@ -338,7 +322,7 @@ function removeImage(){
 
 /**读取配置文件重新渲染静态页面*/
 function renderUI(){
-	var data = localStorage.getItem("layoutconfig");
+	var data = localStorage.getItem("uiTemplateObj");
 	data = JSON.parse(data);
 	for(var i=0;i<data.arr.length;i++){
 		var uid = data.arr[i].key;
@@ -349,31 +333,31 @@ function renderUI(){
 	}
 }
 
-function restoreData(){
+function restoreData(){//此处从服务器拉取
 	if (supportstorage()) {//data可能的值为：null,{"arr":[]}
-		var data = localStorage.getItem("layoutconfig");
-		console.log("localStorage.layoutconfig:"+data);
+/*		var data = localStorage.getItem("uiTemplateObj");
+		//console.log("localStorage.uiTemplateObj:"+data);
 		if(data){
 			try{//data可能为"[object,object]"
 				data = JSON.parse(data);
 				if(data.arr.length > 0){
-					// console.log("localStorage.layoutconfig不为空");
-					layoutconfig = parseJSONtoMap(data);
+					// console.log("localStorage.uiTemplateObj不为空");
+					uiTemplateObj = parseJSONtoMap(data);
 				}else{
-					// console.log("localStorage.layoutconfig为空");
-					layoutconfig = new Map();
+					// console.log("localStorage.uiTemplateObj为空");
+					uiTemplateObj = new Map();
 				}
 			}catch(e){
-				layoutconfig = new Map();
+				uiTemplateObj = new Map();
 			}
 		}else{
-			// console.log("localStorage.layoutconfig为空");
-			layoutconfig = new Map();
+			// console.log("localStorage.uiTemplateObj为空");
+			uiTemplateObj = new Map();
 		}		
 		layouthistory = JSON.parse(localStorage.getItem("layoutdata"));
 		if (!layouthistory) return false;
 		window.demoHtml = layouthistory.list[layouthistory.count-1];
-		if (window.demoHtml) $(".demo").html(window.demoHtml);
+		if (window.demoHtml) $(".demo").html(window.demoHtml);*/
 	}
 }
 
@@ -408,8 +392,12 @@ var gUiObject = {
 	"page_header": page_header,
 	"page_footer": page_footer
 };
-<!--自定义UI配置全局变量--> 
-var layoutconfig;
+
+<!--自定义UI模板配置全局变量--> 
+var uiTemplateObj = {};
+var templateId = "0001";//用户可能会同时编辑多个模板
+uiTemplateObj[templateId]={};
+
 $(document).ready(function() {
 	var tabContent = "";
 	var layoutContent = "";
@@ -451,8 +439,7 @@ $(document).ready(function() {
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
 				if(uid.indexOf("layout") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
-					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
-					localStorage.setItem("layoutconfig",layoutconfig);
+					uiTemplateObj[templateId][ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存
 				}
 			}
 
@@ -491,8 +478,7 @@ $(document).ready(function() {
 					|| uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0
 					|| uid.indexOf("page") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
-					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
-					localStorage.setItem("layoutconfig",layoutconfig);
+					uiTemplateObj[templateId][ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存
 				}
 			}
 			if(stopsave>0) stopsave--;
@@ -527,20 +513,13 @@ $(document).ready(function() {
 		console.log(uid);
 
 		//从缓存中取出控件的属性列表
-		var data = JSON.parse(localStorage.getItem("layoutconfig"));
-		//"{"arr":[{"key":"fs_temperature_323397","value":{"tid":"fs_temperature_323397","width":240,"height":200,"upperLimit":100,"lowerLimit":0,"numberSuffix":"℃","bgcolor":"#f3f5f7","gaugeFillColor":"#ffc420"}}]}"
-		console.log("arr data:"+JSON.stringify(data));
-		var property;
-		for(var i=0; i<data.arr.length; i++){
-			if(data.arr[i].key == uid){
-				property = data.arr[i].value;
-				console.log("property:"+property);
-			}
-		}
+		var data = JSON.parse(localStorage.getItem("uiTemplateObj"));
+		var property = data[templateId][uid];
+
 		if(property){
 			var widgetIndex = uid.substring(0,uid.lastIndexOf("_"));
 			console.log(widgetIndex);
-			//var ui = gUiObject[widgetIndex].getUI(property);
+
 			var configHtml = gUiObject[widgetIndex].configHtml;//编辑代码
 			$("#attrModal").html(configHtml);
 			gUiObject[widgetIndex].showAttr(property);//显示控件属性值
@@ -557,13 +536,11 @@ $(document).ready(function() {
 			/*先更新id，再从缓存中删除原id、属性*/
 	        new_uid = uid.substring(0,placeOfChar(uid,2,'_')+1) + randomNumber();
 	        $("#"+uid).attr("id",new_uid);  
-	        layoutconfig.remove(uid);//删除原记录
-	        localStorage.setItem("layoutconfig",layoutconfig);
+	        delete uiTemplateObj[templateId][uid];//删除原控件属性记录
 	        uid = new_uid;
 
 			var ui = gUiObject[widgetIndex].updateAttr(uid);//动态更新控件显示
-			layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
-			localStorage.setItem("layoutconfig",layoutconfig);			
+			uiTemplateObj[templateId][ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存			
 		});
 
 	});
@@ -586,7 +563,7 @@ $(document).ready(function() {
 	});
 	$("[data-target=#shareModal]").click(function(e) {
 		e.preventDefault();
-		handleSaveLayout();
+		handleSaveTemplateAttr();
 	});
 	$("#download").click(function() {
 		downloadLayout();
@@ -652,6 +629,6 @@ $(document).ready(function() {
 	removeElm();
 	gridSystemGenerator();
 	setInterval(function() {
-		handleSaveLayout()
+		handleSaveTemplateAttr();
 	}, timerSave)
 })
