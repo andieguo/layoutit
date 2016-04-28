@@ -404,7 +404,9 @@ var gUiObject = {
 	"layout_subsys": layout_subsys,
 	"ctr_switch": ctr_switch,
 	"sec_alarm": sec_alarm,
-	"cam_video": cam_video
+	"cam_video": cam_video,
+	"page_header": page_header,
+	"page_footer": page_footer
 };
 <!--自定义UI配置全局变量--> 
 var layoutconfig;
@@ -485,14 +487,12 @@ $(document).ready(function() {
 			handleJsIds();
 			var uid = t.helper.children(".view").children().attr("id");
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
-				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0 || uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0){//自定义ui控件
+				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0 
+					|| uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0
+					|| uid.indexOf("page") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
 					layoutconfig.put(ui.properties.tid,ui.properties);//将拖动后创建的控件ID、属性进行缓存
 					localStorage.setItem("layoutconfig",layoutconfig);
-
-					setTimeout(function(){
-						gUiObject[uid].setValue(ui.properties.tid,1);
-					},2000);
 				}
 			}
 			if(stopsave>0) stopsave--;
@@ -529,7 +529,7 @@ $(document).ready(function() {
 		//从缓存中取出控件的属性列表
 		var data = JSON.parse(localStorage.getItem("layoutconfig"));
 		//"{"arr":[{"key":"fs_temperature_323397","value":{"tid":"fs_temperature_323397","width":240,"height":200,"upperLimit":100,"lowerLimit":0,"numberSuffix":"℃","bgcolor":"#f3f5f7","gaugeFillColor":"#ffc420"}}]}"
-		console.log("arr:"+data.arr);
+		console.log("arr data:"+JSON.stringify(data));
 		var property;
 		for(var i=0; i<data.arr.length; i++){
 			if(data.arr[i].key == uid){
