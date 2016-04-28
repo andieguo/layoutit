@@ -419,8 +419,8 @@ $(document).ready(function() {
 			tabContent = gUiObject[p].html + tabContent;
 		}
 	}
-	$("#estRows").html($("#estRows").html() + layoutContent);//
-	$("#elmComponents").html(tabContent + $("#elmComponents").html());//
+	$("#estRows").html($("#estRows").html() + layoutContent);//布局类渲染
+	$("#elmComponents").html(tabContent + $("#elmComponents").html());//组件类渲染
 
 
 	CKEDITOR.disableAutoInline = true;
